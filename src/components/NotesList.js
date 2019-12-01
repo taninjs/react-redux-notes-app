@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { connect } from 'react-redux'
 
 class NotesList extends React.Component {
   constructor(props) {
@@ -11,16 +11,25 @@ class NotesList extends React.Component {
       <>
         <h3>Notes</h3>
         <ul>
-          <li>
-            <b>Title</b>
-            <button>x</button>
-            <br />
-            <span>Note Content</span>
-          </li>
+          {this.props.notes.map(note => (
+            <li key={note.id}>
+              <b>{note.title}</b>
+              <button>x</button>
+              <br />
+              <span>{note.content}</span>
+            </li>
+          ))}
+
         </ul>
       </>
     )
   }
 }
 
-export default NotesList
+const mapStateToProps = (state) => {
+  return {
+    notes: state.notes
+  }
+}
+
+export default connect(mapStateToProps, null)(NotesList)
