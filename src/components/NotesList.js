@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { removeNote } from '../redux/actions/actions'
 
 class NotesList extends React.Component {
   constructor(props) {
@@ -14,7 +15,7 @@ class NotesList extends React.Component {
           {this.props.notes.map(note => (
             <li key={note.id}>
               <b>{note.title}</b>
-              <button>x</button>
+              <button onClick={() => this.props.removeNote(note.id)}>x</button>
               <br />
               <span>{note.content}</span>
             </li>
@@ -32,4 +33,8 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, null)(NotesList)
+const mapDispatchToProps = {
+  removeNote: removeNote
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NotesList)
